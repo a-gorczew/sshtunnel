@@ -1165,9 +1165,9 @@ class SSHTunnelForwarder(object):
         if isinstance(ssh_pkey, paramiko.pkey.PKey):
             ssh_loaded_pkeys.insert(0, ssh_pkey)
 
-        if not ssh_password and not ssh_loaded_pkeys:
+        if ssh_password is None and ssh_loaded_pkeys is None:
             raise ValueError('No password or public key available!')
-        return (ssh_password, ssh_loaded_pkeys)
+        return ssh_password, ssh_loaded_pkeys
 
     def _raise(self, exception=BaseSSHTunnelForwarderError, reason=None):
         if self._raise_fwd_exc:
